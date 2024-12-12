@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Facts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .fact-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        #fact-number {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: #666;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Electric Vehicle Facts</h1>
+        <div class="fact-card">
+            <p id="fact-text"></p>
+            <span id="fact-number"></span>
+        </div>
+        <div class="controls">
+            <button id="prev-btn">Previous</button>
+            <button id="next-btn">Next</button>
+        </div>
+    </div>
+
+    <script>
+        const evFacts = {
+            "electric_vehicle_facts": [
+                {
+                    "id": 1,
+                    "fact": "The first electric vehicle was created in 1832 by Robert Anderson of Scotland, predating the internal combustion engine car"
+                },
+                {
+                    "id": 2,
+                    "fact": "Electric vehicles produce zero direct emissions, helping reduce air pollution in urban areas"
+                },
+                {
+                    "id": 3,
+                    "fact": "The average electric vehicle battery can last between 8-10 years or 100,000-200,000 miles"
+                },
+                {
+                    "id": 4,
+                    "fact": "Tesla's Model S Plaid can accelerate from 0-60 mph in under 2 seconds"
+                },
+                {
+                    "id": 5,
+                    "fact": "Electric vehicles typically have fewer moving parts than conventional cars, resulting in lower maintenance costs"
+                },
+                {
+                    "id": 6,
+                    "fact": "Most modern EVs can be charged to 80% capacity in 30 minutes using DC fast charging"
+                },
+                {
+                    "id": 7,
+                    "fact": "The global electric vehicle market is expected to reach $823.75 billion by 2030"
+                },
+                {
+                    "id": 8,
+                    "fact": "Norway has the highest per capita EV adoption rate globally, with over 80% of new car sales being electric"
+                },
+                {
+                    "id": 9,
+                    "fact": "Electric vehicles are significantly quieter than traditional combustion engine vehicles"
+                },
+                {
+                    "id": 10,
+                    "fact": "The average EV has a carbon footprint about 60% lower than gasoline-powered vehicles over its lifetime"
+                },
+                {
+                    "id": 11,
+                    "fact": "Many electric vehicles can be pre-heated or cooled while still plugged in, saving battery life"
+                },
+                {
+                    "id": 12,
+                    "fact": "Electric motors provide instant torque, resulting in quick acceleration from a standstill"
+                },
+                {
+                    "id": 13,
+                    "fact": "Most electric vehicles use regenerative braking to recover energy and extend range"
+                },
+                {
+                    "id": 14,
+                    "fact": "The first mass-produced electric vehicle was the Nissan Leaf, launched in 2010"
+                },
+                {
+                    "id": 15,
+                    "fact": "Electric vehicles can reduce energy costs by up to 70% compared to gasoline vehicles"
+                },
+                {
+                    "id": 16,
+                    "fact": "Many countries plan to ban the sale of new gasoline cars between 2030 and 2040"
+                },
+                {
+                    "id": 17,
+                    "fact": "Electric vehicles can be powered by renewable energy sources like solar and wind power"
+                },
+                {
+                    "id": 18,
+                    "fact": "The average electric vehicle range has increased from 73 miles in 2011 to over 250 miles in 2023"
+                },
+                {
+                    "id": 19,
+                    "fact": "Electric vehicles typically have a lower center of gravity due to battery placement, improving handling"
+                },
+                {
+                    "id": 20,
+                    "fact": "The global number of public EV charging stations exceeded 1.8 million in 2021"
+                }
+            ]
+        };
+
+        let currentFactIndex = 0;
+
+        const factText = document.getElementById('fact-text');
+        const factNumber = document.getElementById('fact-number');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        function displayFact(index) {
+            const fact = evFacts.electric_vehicle_facts[index];
+            factText.textContent = fact.fact;
+            factNumber.textContent = `Fact ${fact.id} of ${evFacts.electric_vehicle_facts.length}`;
+            
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === evFacts.electric_vehicle_facts.length - 1;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentFactIndex > 0) {
+                currentFactIndex--;
+                displayFact(currentFactIndex);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentFactIndex < evFacts.electric_vehicle_facts.length - 1) {
+                currentFactIndex++;
+                displayFact(currentFactIndex);
+            }
+        });
+
+        // Display the first fact on page load
+        displayFact(currentFactIndex);
+    </script>
+</body>
+</html>
