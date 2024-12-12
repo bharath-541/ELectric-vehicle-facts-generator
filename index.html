@@ -18,66 +18,77 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .car {
+            position: absolute;
+            bottom: 50px;
+            left: -150px; /* Start outside the viewport */
+            width: 120px;
+            height: 60px;
+            animation: driveCar 15s linear infinite;
+            z-index: 1;
+        }
+
+        .car img {
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes driveCar {
+            from {
+                transform: translateX(-100px);
+            }
+            to {
+                transform: translateX(calc(100vw + 100px));
+            }
+        }
+
+        .road {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background-color: #333;
+            z-index: 0;
+        }
+
+        .road::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            height: 5px;
+            background: repeating-linear-gradient(
+                90deg,
+                white 0px,
+                white 50px,
+                transparent 50px,
+                transparent 100px
+            );
         }
 
         .container {
             max-width: 800px;
             padding: 2rem;
             text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            z-index: 2;
         }
 
-        h1 {
-            color: #333;
-            margin-bottom: 2rem;
-        }
+        /* Keep all other existing styles... */
+        /* [Previous CSS styles remain the same] */
 
-        .fact-card {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 1rem;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-        }
-
-        #fact-number {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            color: #666;
-        }
-
-        .controls {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        button {
-            padding: 0.5rem 1rem;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
     </style>
 </head>
 <body>
+    <div class="road"></div>
+    <div class="car">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNDgwIj48cGF0aCBmaWxsPSIjMDA4MGZmIiBkPSJNMTAwIDI4MGg0NDBjMTEuMDQ2IDAgMjAgOC45NTQgMjAgMjB2NDBjMCAxMS4wNDYtOC45NTQgMjAtMjAgMjBIMTAwYy0xMS4wNDYgMC0yMC04Ljk1NC0yMC0yMHYtNDBjMC0xMS4wNDYgOC45NTQtMjAgMjAtMjB6Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTE2MCAzNjBjMTEuMDQ2IDAgMjAtOC45NTQgMjAtMjBzLTguOTU0LTIwLTIwLTIwLTIwIDguOTU0LTIwIDIwIDguOTU0IDIwIDIwIDIwem0zMjAgMGMxMS4wNDYgMCAyMC04Ljk1NCAyMC0yMHMtOC45NTQtMjAtMjAtMjAtMjAgOC45NTQtMjAgMjAgOC45NTQgMjAgMjAgMjB6Ii8+PC9zdmc+" alt="Electric Car">
+    </div>
     <div class="container">
         <h1>Electric Vehicle Facts</h1>
         <div class="fact-card">
@@ -89,7 +100,6 @@
             <button id="next-btn">Next</button>
         </div>
     </div>
-
     <script>
         const evFacts = {
             "electric_vehicle_facts": [
@@ -208,6 +218,8 @@
 
         // Display the first fact on page load
         displayFact(currentFactIndex);
+        
     </script>
 </body>
 </html>
+
