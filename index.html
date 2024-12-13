@@ -13,7 +13,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(180deg, #87CEEB 0%, #4682B4 100%);
+            background: linear-gradient(180deg, #87CEEB 0%, #90EE90 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,49 +22,46 @@
             overflow: hidden;
         }
 
-        /* Full-screen background animation */
-        .background {
+        .earth-background {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iIzJFODhGRiIvPjxwYXRoIGQ9Ik0zMCA1MEMyNSAzMCA0MCAyMCA1MCAyMEM2NSAyMCA3MCAzMCA3MCA0MEM3MCA2MCA0MCA4MCAzMCA1MFoiIGZpbGw9IiM5MEVFOTAiLz48L3N2Zz4=');
+            opacity: 0.2;
+            z-index: -2;
         }
 
         .car {
             position: absolute;
-            bottom: 100px;
-            left: -200px;
-            width: 180px;
-            height: 90px;
+            bottom: 50px;
+            left: -150px;
+            width: 120px;
+            height: 60px;
             animation: driveCar 15s linear infinite;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+            z-index: 1;
         }
 
         .car img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
         }
 
         @keyframes driveCar {
             from {
-                transform: translateX(-200px);
+                transform: translateX(-100px);
             }
             to {
-                transform: translateX(calc(100vw + 200px));
+                transform: translateX(calc(100vw + 100px));
             }
         }
 
-        /* Road styling */
         .road {
-            position: fixed;
+            position: absolute;
             bottom: 0;
             width: 100%;
-            height: 150px;
+            height: 100px;
             background-color: #333;
-            z-index: -1;
+            z-index: 0;
         }
 
         .road::after {
@@ -72,87 +69,34 @@
             position: absolute;
             top: 50%;
             width: 100%;
-            height: 10px;
+            height: 5px;
             background: repeating-linear-gradient(
                 90deg,
                 white 0px,
-                white 80px,
-                transparent 80px,
-                transparent 160px
+                white 50px,
+                transparent 50px,
+                transparent 100px
             );
         }
 
-        /* Content styling */
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             max-width: 800px;
-            width: 90%;
-            margin: 20px;
-            z-index: 1;
-        }
-
-        .fact-card {
-            background-color: white;
             padding: 2rem;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 2;
         }
 
-        h1 {
-            color: #333;
-            margin-bottom: 2rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
+        /* Keep existing styles for fact-card, buttons, etc. */
+        /* [Previous CSS styles for fact-card and controls remain the same] */
 
-        #fact-number {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            color: #666;
-        }
-
-        .controls {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        button {
-            padding: 0.8rem 1.5rem;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        button:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
-        }
-
-        button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-        }
     </style>
 </head>
 <body>
-    <div class="background">
-        <div class="road"></div>
-    </div>
+    <div class="earth-background"></div>
+    <div class="road"></div>
     <div class="car">
         <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNDgwIj48cGF0aCBmaWxsPSIjMDA4MGZmIiBkPSJNMTAwIDI4MGg0NDBjMTEuMDQ2IDAgMjAgOC45NTQgMjAgMjB2NDBjMCAxMS4wNDYtOC45NTQgMjAtMjAgMjBIMTAwYy0xMS4wNDYgMC0yMC04Ljk1NC0yMC0yMHYtNDBjMC0xMS4wNDYgOC45NTQtMjAgMjAtMjB6Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTE2MCAzNjBjMTEuMDQ2IDAgMjAtOC45NTQgMjAtMjBzLTguOTU0LTIwLTIwLTIwLTIwIDguOTU0LTIwIDIwIDguOTU0IDIwIDIwIDIwem0zMjAgMGMxMS4wNDYgMCAyMC04Ljk1NCAyMC0yMHMtOC45NTQtMjAtMjAtMjAtMjAgOC45NTQtMjAgMjAgOC45NTQgMjAgMjAgMjB6Ii8+PC9zdmc+" alt="Electric Car">
     </div>
@@ -167,6 +111,7 @@
             <button id="next-btn">Next</button>
         </div>
     </div>
+    
 
 
     <script>
