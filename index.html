@@ -13,7 +13,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background: linear-gradient(180deg, #87CEEB 0%, #4682B4 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,37 +22,49 @@
             overflow: hidden;
         }
 
+        /* Full-screen background animation */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
         .car {
             position: absolute;
-            bottom: 50px;
-            left: -150px; /* Start outside the viewport */
-            width: 120px;
-            height: 60px;
+            bottom: 100px;
+            left: -200px;
+            width: 180px;
+            height: 90px;
             animation: driveCar 15s linear infinite;
-            z-index: 1;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
         }
 
         .car img {
             width: 100%;
             height: 100%;
+            object-fit: contain;
         }
 
         @keyframes driveCar {
             from {
-                transform: translateX(-100px);
+                transform: translateX(-200px);
             }
             to {
-                transform: translateX(calc(100vw + 100px));
+                transform: translateX(calc(100vw + 200px));
             }
         }
 
+        /* Road styling */
         .road {
-            position: absolute;
+            position: fixed;
             bottom: 0;
             width: 100%;
-            height: 100px;
+            height: 150px;
             background-color: #333;
-            z-index: 0;
+            z-index: -1;
         }
 
         .road::after {
@@ -60,32 +72,87 @@
             position: absolute;
             top: 50%;
             width: 100%;
-            height: 5px;
+            height: 10px;
             background: repeating-linear-gradient(
                 90deg,
                 white 0px,
-                white 50px,
-                transparent 50px,
-                transparent 100px
+                white 80px,
+                transparent 80px,
+                transparent 160px
             );
         }
 
+        /* Content styling */
         .container {
-            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
             padding: 2rem;
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
-            z-index: 2;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 90%;
+            margin: 20px;
+            z-index: 1;
         }
 
-        /* Keep all other existing styles... */
-        /* [Previous CSS styles remain the same] */
+        .fact-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
 
+        h1 {
+            color: #333;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        #fact-number {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: #666;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        button {
+            padding: 0.8rem 1.5rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
     </style>
 </head>
 <body>
-    <div class="road"></div>
+    <div class="background">
+        <div class="road"></div>
+    </div>
     <div class="car">
         <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNDgwIj48cGF0aCBmaWxsPSIjMDA4MGZmIiBkPSJNMTAwIDI4MGg0NDBjMTEuMDQ2IDAgMjAgOC45NTQgMjAgMjB2NDBjMCAxMS4wNDYtOC45NTQgMjAtMjAgMjBIMTAwYy0xMS4wNDYgMC0yMC04Ljk1NC0yMC0yMHYtNDBjMC0xMS4wNDYgOC45NTQtMjAgMjAtMjB6Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTE2MCAzNjBjMTEuMDQ2IDAgMjAtOC45NTQgMjAtMjBzLTguOTU0LTIwLTIwLTIwLTIwIDguOTU0LTIwIDIwIDguOTU0IDIwIDIwIDIwem0zMjAgMGMxMS4wNDYgMCAyMC04Ljk1NCAyMC0yMHMtOC45NTQtMjAtMjAtMjAtMjAgOC45NTQtMjAgMjAgOC45NTQgMjAgMjAgMjB6Ii8+PC9zdmc+" alt="Electric Car">
     </div>
@@ -100,6 +167,8 @@
             <button id="next-btn">Next</button>
         </div>
     </div>
+
+
     <script>
         const evFacts = {
             "electric_vehicle_facts": [
